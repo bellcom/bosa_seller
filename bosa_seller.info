@@ -1,0 +1,5 @@
+name = BOSA Seller
+description = Things related to the sellers
+package = BOSA
+core = 7.x
+dependencies[]=bosa_seller_fields

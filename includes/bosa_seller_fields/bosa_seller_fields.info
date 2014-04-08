@@ -1,0 +1,17 @@
+name = BOSA Seller fields
+description = seller user profile fields
+core = 7.x
+package = BOSA
+version = 7.x-1.0
+project = bosa_seller_fields
+dependencies[] = features
+dependencies[] = field_sql_storage
+dependencies[] = text
+features[features_api][] = api:1
+features[field][] = user-user-field_accountnr
+features[field][] = user-user-field_address
+features[field][] = user-user-field_companyname
+features[field][] = user-user-field_contactperson
+features[field][] = user-user-field_cvrnr
+features[field][] = user-user-field_note
+features[field][] = user-user-field_regnr

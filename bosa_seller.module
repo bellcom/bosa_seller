@@ -1,0 +1,111 @@
+<?php
+
+/**
+ * Implements hook_menu()
+ */
+function bosa_seller_menu(){
+  $items = array();
+
+  $items['user/%user/profile'] = array(
+    'title' => 'Profile',
+    'type' => MENU_LOCAL_TASK,
+    'page callback' => 'bosa_seller_user_profile',
+    'page arguments' => array(1),
+    // Implement proper permissions
+    'access arguments' => array('access content'),
+
+  );
+  return $items;
+}
+
+/**
+ * Implements hook_admin_paths()
+ */
+function bosa_seller_admin_paths(){
+  return array(
+    'user/*/profile' => TRUE,
+  );
+}
+
+/**
+ * Implements hook_form_FORM_ID_alter()
+ */
+function bosa_seller_form_user_admin_account_alter(&$form, &$form_state, $form_id){
+ $profile_column = array('uid' => array(
+    'data'  => 'Profil',
+  ));
+  $form['accounts']['#header'] = $form['accounts']['#header'] + $profile_column;
+
+  foreach ($form['accounts']['#options'] as $key => $row) {
+    $form['accounts']['#options'][$key]['uid'] =  array('data' => array('#type' => 'link', '#title' => t('profile'), '#href' => "user/$key/profile", '#options' => array('query' => $destination)));
+
+  }
+
+}
+
+/**
+ * Page callback for profile
+ */
+function bosa_seller_user_profile($user){
+  $header = array(
+    'Firmanavn',
+    'Adresse',
+    'Kontaktperson',
+    'Reg. nr.',
+    'Konto nr.',
+    'CVR nr.',
+    'Note',
+    'Omsætningsoversigt'
+  );
+
+  $companyname = '';
+  $address = '';
+  $contactperson = '';
+  $regnr = '';
+  $accountnr = '';
+  $crvnr = '';
+  $note = '';
+
+  if( $companyname_field = field_get_items('user', $user, 'field_companyname') ){
+    $companyname = $companyname_field[0]['value'];
+  }
+
+  if( $address_field = field_get_items('user', $user, 'field_address') ){
+    $address = nl2br($address_field[0]['value']);
+  }
+  
+  if( $contactperson_field = field_get_items('user', $user, 'field_contactperson') ){
+    $contactperson = $contactperson_field[0]['value'];
+  }
+
+  if( $regnr_field = field_get_items('user', $user, 'field_regnr') ){
+    $regnr = $regnr_field[0]['value'];
+  }
+
+  if( $accountnr_field = field_get_items('user', $user, 'field_accountnr') ){
+    $accountnr = $accountnr_field[0]['value'];
+  }
+  
+  if( $cvrnr_field = field_get_items('user', $user, 'field_cvrnr') ){
+    $cvrnr = $cvrnr_field[0]['value'];
+  }
+
+  if( $note_field = field_get_items('user', $user, 'field_note') ){
+    $note = nl2br($note_field[0]['value']);
+  }
+
+
+  $rows = array(array(
+    $companyname,
+    $address,
+    $contactperson,
+    $regnr,
+    $accountnr,
+    $cvrnr,
+    $note,
+    '<a href="/admin/bosa/statement/'.$user->uid.'">hent</a>'
+
+
+  ));
+  return theme('table', array('header' => $header, 'rows' => $rows)); 
+}
