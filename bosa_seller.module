@@ -1,4 +1,11 @@
 <?php
+/**
+ * BOSA Seller module.
+ *
+ * @author Thomas Thune Hansen <tth@bellcom.dk>
+ * @copyright bellcom open source aps
+ */
+
 
 /**
  * Implements hook_menu()
@@ -94,7 +101,6 @@ function bosa_seller_user_profile($user){
     $note = nl2br($note_field[0]['value']);
   }
 
-
   $rows = array(array(
     $companyname,
     $address,
@@ -104,8 +110,6 @@ function bosa_seller_user_profile($user){
     $cvrnr,
     $note,
     '<a href="/admin/bosa/statement/'.$user->uid.'">hent</a>'
-
-
   ));
   return theme('table', array('header' => $header, 'rows' => $rows)); 
 }
