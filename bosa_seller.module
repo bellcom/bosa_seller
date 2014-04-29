@@ -80,19 +80,29 @@ function bosa_seller_user_profile($user){
   if( $address_field = field_get_items('user', $user, 'field_address') ){
     $address = nl2br($address_field[0]['value']);
   }
-  
+
   if( $contactperson_field = field_get_items('user', $user, 'field_contactperson') ){
     $contactperson = $contactperson_field[0]['value'];
   }
 
   if( $regnr_field = field_get_items('user', $user, 'field_regnr') ){
-    $regnr = $regnr_field[0]['value'];
+    $tmp = [];
+
+    foreach($regnr_field as $regnr_field_value){
+      $tmp[] = $regnr_field_value['value'];
+    }
+    $regnr = implode('<br>', $tmp);
   }
 
   if( $accountnr_field = field_get_items('user', $user, 'field_accountnr') ){
-    $accountnr = $accountnr_field[0]['value'];
+    $tmp = [];
+
+    foreach($accountnr_field as $accountnr_field_value){
+      $tmp[] = $accountnr_field_value['value'];
+    }
+    $accountnr = implode('<br>', $tmp);
   }
-  
+
   if( $cvrnr_field = field_get_items('user', $user, 'field_cvrnr') ){
     $cvrnr = $cvrnr_field[0]['value'];
   }
@@ -111,5 +121,5 @@ function bosa_seller_user_profile($user){
     $note,
     '<a href="/admin/bosa/statement/'.$user->uid.'">hent</a>'
   ));
-  return theme('table', array('header' => $header, 'rows' => $rows)); 
+  return theme('table', array('header' => $header, 'rows' => $rows));
 }

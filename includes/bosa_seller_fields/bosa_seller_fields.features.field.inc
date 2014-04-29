@@ -14,7 +14,7 @@ function bosa_seller_fields_field_default_fields() {
   $fields['user-user-field_accountnr'] = array(
     'field_config' => array(
       'active' => '1',
-      'cardinality' => '1',
+      'cardinality' => '-1',
       'deleted' => '0',
       'entity_types' => array(),
       'field_name' => 'field_accountnr',
@@ -402,7 +402,7 @@ function bosa_seller_fields_field_default_fields() {
   $fields['user-user-field_regnr'] = array(
     'field_config' => array(
       'active' => '1',
-      'cardinality' => '1',
+      'cardinality' => '-1',
       'deleted' => '0',
       'entity_types' => array(),
       'field_name' => 'field_regnr',
