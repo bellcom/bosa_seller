@@ -86,7 +86,7 @@ function bosa_seller_user_profile($user){
   }
 
   if( $regnr_field = field_get_items('user', $user, 'field_regnr') ){
-    $tmp = [];
+    $tmp = array();
 
     foreach($regnr_field as $regnr_field_value){
       $tmp[] = $regnr_field_value['value'];
@@ -95,7 +95,7 @@ function bosa_seller_user_profile($user){
   }
 
   if( $accountnr_field = field_get_items('user', $user, 'field_accountnr') ){
-    $tmp = [];
+    $tmp = array();
 
     foreach($accountnr_field as $accountnr_field_value){
       $tmp[] = $accountnr_field_value['value'];
